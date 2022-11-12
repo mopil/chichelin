@@ -1,0 +1,38 @@
+spring:
+  # DB 설정
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#        format_sql: true
+
+
+  profiles:
+    active: secret
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # JSON Lazy 로딩 오류 설정
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  # 멀티파트 최대 사이즈 설정
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  session:
+    timeout: 900 # 15분
+
+
+# 에러 응답 설정
+server:
+  error:
+    include-stacktrace: on_param
+    include-exception: true
+
