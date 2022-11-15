@@ -91,6 +91,55 @@ class ChickenService(
         return BoolResponse(true)
     }
 
+    /**
+     * Review
+     */
+    @Transactional
+    fun createReview(chickenId: Long, form: ReviewRequest): ChickenResponse {
+        val chicken = findById(chickenId)
+        chicken.addReview(
+            Review(
+                content = form.content,
+                nickname = form.nickname,
+                password = form.password
+            )
+        )
+        return ChickenResponse(chicken)
+    }
+
+    @Transactional
+    fun updateReview(chickenId: Long, reviewId: Long, form: ReviewRequest): ChickenResponse {
+        val chicken = findById(chickenId)
+        chicken.reviews
+            .find { it.id == reviewId }
+            ?.update(
+                content = form.content,
+                nickname = form.nickname,
+                password = form.password
+            )
+        return ChickenResponse(chicken)
+    }
+
+    @Transactional
+    fun plusReviewLike(chickenId: Long, reviewId: Long): ChickenResponse {
+        val chicken = findById(chickenId)
+        chicken.reviews
+            .find { it.id == reviewId }
+            ?.plusLike()
+        return ChickenResponse(chicken)
+    }
+
+    @Transactional
+    fun deleteReview(chickenId: Long, reviewId: Long): ChickenResponse {
+        val chicken = findById(chickenId)
+
+        chicken.reviews
+            .find { it.id == reviewId }
+            .let { chicken.reviews.remove(it) }
+
+        return ChickenResponse(chicken)
+    }
+
 
 
 }

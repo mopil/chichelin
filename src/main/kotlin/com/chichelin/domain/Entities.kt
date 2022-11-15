@@ -1,5 +1,6 @@
 package com.chichelin.domain
 
+import com.chichelin.config.getSavePath
 import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -66,8 +67,7 @@ class Chicken(
      */
     @PostRemove
     fun deleteImage() {
-        val savePath = System.getProperty("user.dir") + "/image/${imageServerFilename}"
-        File(savePath).delete()
+        File(getSavePath()).delete()
     }
     fun addReview(review: Review) { this.reviews.add(review) }
     fun plusLikes() { this.likes += 1 }
@@ -124,7 +124,16 @@ class Review(
     /**
      * methods
      */
-
+    fun plusLike() { this.likes += 1 }
+    fun update(
+        content: String,
+        nickname: String,
+        password: Int
+    ) {
+        this.content = content
+        this.nickname = nickname
+        this.password = password
+    }
     @PrePersist
     fun prePersist() {
         this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
