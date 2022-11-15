@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	id("java-library")
 }
 
 group = "com"
@@ -25,6 +26,8 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.jsoup:jsoup:1.15.3")
+	implementation ("com.sun.xml.bind:jaxb-impl:2.3.3")
+
 }
 
 allOpen {

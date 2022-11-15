@@ -12,6 +12,4 @@ fun main(args: Array<String>) {
 	runApplication<ChichelinApplication>(*args)
 }
 
-inline fun <reified T> T.logger(): Logger {
-	return LoggerFactory.getLogger(T::class.java)
-}
+
