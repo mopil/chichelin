@@ -78,7 +78,7 @@ data class BrandListResponse(
 data class ReviewRequest(
     var nickname: String,
     var password: Int,
-    var content: String,
+    var content: String
 )
 
 data class ReviewResponse(

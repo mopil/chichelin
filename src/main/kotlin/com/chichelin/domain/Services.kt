@@ -101,9 +101,13 @@ class ChickenService(
             Review(
                 content = form.content,
                 nickname = form.nickname,
-                password = form.password
+                password = form.password,
+                chicken = chicken
             )
         )
+        println(chicken.reviews)
+        chickenRepository.flush()
+        println(chicken.reviews)
         return ChickenResponse(chicken)
     }
 

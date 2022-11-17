@@ -28,9 +28,10 @@ class Chicken(
     spicy: Int,
     brand: String,
     writer: String,
-    password: Int,
+    password: Int
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "chicken_id")
     var id: Long? = null
         protected set
 
@@ -69,7 +70,9 @@ class Chicken(
     fun deleteImage() {
         File(getSavePath()).delete()
     }
-    fun addReview(review: Review) { this.reviews.add(review) }
+    fun addReview(review: Review) {
+        this.reviews.add(review)
+    }
     fun plusLikes() { this.likes += 1 }
 
     fun update(
@@ -96,9 +99,11 @@ class Chicken(
 class Review(
     content: String,
     nickname: String,
-    password: Int
+    password: Int,
+    chicken: Chicken,
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "review_id")
     var id: Long? = null
         protected set
 
@@ -118,7 +123,8 @@ class Review(
         protected set
 
     @ManyToOne(fetch = FetchType.LAZY)
-    var chicken: Chicken? = null
+    @JoinColumn(name = "chicken_id")
+    var chicken: Chicken = chicken
         protected set
 
     /**

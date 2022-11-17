@@ -15,7 +15,6 @@ class ChickenController(private val chickenService: ChickenService) {
     /**
      * Chicken
      */
-
     @PostMapping
     fun createChicken(@ModelAttribute form: CreateChickenRequest): ChickenResponse {
         return chickenService.createChicken(form)
@@ -52,6 +51,34 @@ class ChickenController(private val chickenService: ChickenService) {
     /**
      * Review
      */
-    
+    @PostMapping("/{chickenId}/review")
+    fun createReview(
+        @PathVariable("chickenId") chickenId: Long,
+        @RequestBody form: ReviewRequest
+    ): ChickenResponse = chickenService.createReview(chickenId, form)
 
+    @PutMapping("/{chickenId}/review/{reviewId}")
+    fun updateReview(
+        @PathVariable("chickenId") chickenId: Long,
+        @PathVariable("reviewId") reviewId: Long,
+        @RequestBody form: ReviewRequest
+    ): ChickenResponse = chickenService.updateReview(chickenId, reviewId, form)
+
+    @PostMapping("/{chickenId}/review/like")
+    fun plusReviewLike(
+        @PathVariable("chickenId") chickenId: Long,
+        @PathVariable("reviewId") reviewId: Long,
+    ): ChickenResponse = chickenService.plusReviewLike(chickenId, reviewId)
+
+    @DeleteMapping("/{chickenId}/review/{reviewId}")
+    fun deleteReview(
+        @PathVariable("chickenId") chickenId: Long,
+        @PathVariable("reviewId") reviewId: Long,
+    ): ChickenResponse = chickenService.deleteReview(chickenId, reviewId)
+}
+
+@RestController
+class HelloController {
+    @GetMapping
+    fun hello() = "Hello! Chichelin is running on service."
 }
