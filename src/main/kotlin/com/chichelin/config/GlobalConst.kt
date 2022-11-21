@@ -10,9 +10,15 @@ inline fun <reified T> T.logger(): Logger {
 }
 
 fun getSavePath(filename: String? = null): String {
-    return filename?.let {
-        System.getProperty("user.dir") + "/image/${filename}"
-    } ?: run {
+    val os = System.getProperty("os.name")
+    val savedPath = if (os.contains("linux")) {
+        "///home/ubuntu/chichelin/image/"
+    } else {
         System.getProperty("user.dir") + "/image/"
+    }
+    return filename?.let {
+        savedPath + "$filename"
+    } ?: run {
+        savedPath
     }
 }

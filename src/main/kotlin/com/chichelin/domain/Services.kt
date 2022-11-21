@@ -37,9 +37,7 @@ class ChickenService(
                 imageServerFilename = saveChickenImage(form.image),
                 price = form.price,
                 spicy = form.spicy,
-                brand = form.brand,
-                writer = form.writer,
-                password = form.password
+                brand = form.brand
             )
         )
         return ChickenResponse(savedChicken)
@@ -76,9 +74,7 @@ class ChickenService(
             chickenName = form.chickenName,
             price = form.price,
             spicy = form.spicy,
-            brand = form.brand,
-            writer = form.writer,
-            password = form.password
+            brand = form.brand
         )
 
         chickenRepository.flush()

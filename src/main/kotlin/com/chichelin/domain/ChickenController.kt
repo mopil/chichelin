@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/chicken")
 class ChickenController(private val chickenService: ChickenService) {
     val log = logger()
-
     /**
      * Chicken
      */

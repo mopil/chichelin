@@ -14,9 +14,7 @@ data class CreateChickenRequest(
     var image: MultipartFile,
     var price: Int = 0,
     var spicy: Int = 0,
-    var brand: String = "",
-    var writer: String = "",
-    var password: Int = 0,
+    var brand: String = ""
 )
 
 data class UpdateChickenRequest(
@@ -24,9 +22,7 @@ data class UpdateChickenRequest(
     var image: MultipartFile,
     var price: Int?,
     var spicy: Int?,
-    var brand: String?,
-    var writer: String?,
-    var password: Int?,
+    var brand: String?
 )
 
 data class ChickenResponse(
@@ -37,8 +33,6 @@ data class ChickenResponse(
     var spicy: Int,
     var brand: String,
     var likes: Int,
-    var writer: String,
-    var password: Int,
     var reviews: List<ReviewResponse> = mutableListOf()
 ) {
     constructor(c: Chicken): this(
@@ -49,8 +43,6 @@ data class ChickenResponse(
         spicy = c.spicy,
         brand = c.brand,
         likes = c.likes,
-        writer = c.writer,
-        password = c.password,
         reviews = c.reviews.map { ReviewResponse(it) }.toList()
     )
 }
