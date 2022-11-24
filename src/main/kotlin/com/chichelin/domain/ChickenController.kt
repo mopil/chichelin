@@ -46,6 +46,9 @@ class ChickenController(private val chickenService: ChickenService) {
     fun deleteChicken(@PathVariable chickenId: Long): BoolResponse =
         chickenService.deleteChicken(chickenId)
 
+    @GetMapping("/recommend")
+    fun getRecommend(): ChickenResponse = chickenService.getRecommend()
+
 
     /**
      * Review

@@ -87,6 +87,9 @@ class ChickenService(
         return BoolResponse(true)
     }
 
+    fun getRecommend() = ChickenResponse(chickenRepository.getRecommendChicken()[0])
+
+
     /**
      * Review
      */

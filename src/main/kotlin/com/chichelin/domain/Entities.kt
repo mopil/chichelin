@@ -26,7 +26,9 @@ class Chicken(
     imageServerFilename: String,
     price: Int,
     spicy: Int,
-    brand: String
+    brand: String,
+    likes: Int = 0,
+    reviewCount: Int = 0,
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chicken_id")
@@ -48,7 +50,10 @@ class Chicken(
     var brand: String = brand
         protected set
 
-    var likes: Int = 0
+    var likes: Int = likes
+        protected set
+
+    var reviewCount: Int = reviewCount
         protected set
 
     @OneToMany(mappedBy = "chicken", cascade = [CascadeType.ALL], orphanRemoval = true)
