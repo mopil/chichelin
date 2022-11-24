@@ -47,6 +47,10 @@ data class ChickenResponse(
     )
 }
 
+data class ChickenRankingResponse(
+    var ranking: MutableList<ChickenResponse>
+)
+
 data class ChickenListResponse(
     var totalCount: Long,
     var curCount: Int,
@@ -65,6 +69,10 @@ data class ChickenListResponse(
 
 data class BrandListResponse(
     var brands: List<String> = mutableListOf()
+)
+
+data class ReviewPasswordDto(
+    var password: Int
 )
 
 data class ReviewRequest(

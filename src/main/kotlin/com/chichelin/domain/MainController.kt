@@ -49,6 +49,9 @@ class ChickenController(private val chickenService: ChickenService) {
     @GetMapping("/recommend")
     fun getRecommend(): ChickenResponse = chickenService.getRecommend()
 
+    @GetMapping("/ranking")
+    fun getRanking(): ChickenRankingResponse = chickenService.getRanking()
+
 
     /**
      * Review
@@ -66,7 +69,7 @@ class ChickenController(private val chickenService: ChickenService) {
         @RequestBody form: ReviewRequest
     ): ChickenResponse = chickenService.updateReview(chickenId, reviewId, form)
 
-    @PostMapping("/{chickenId}/review/like")
+    @PostMapping("/{chickenId}/review/{reviewId}/like")
     fun plusReviewLike(
         @PathVariable("chickenId") chickenId: Long,
         @PathVariable("reviewId") reviewId: Long,
@@ -76,7 +79,8 @@ class ChickenController(private val chickenService: ChickenService) {
     fun deleteReview(
         @PathVariable("chickenId") chickenId: Long,
         @PathVariable("reviewId") reviewId: Long,
-    ): ChickenResponse = chickenService.deleteReview(chickenId, reviewId)
+        @RequestBody passwordDto: ReviewPasswordDto,
+    ): ChickenResponse = chickenService.deleteReview(chickenId, reviewId, passwordDto.password)
 }
 
 @RestController

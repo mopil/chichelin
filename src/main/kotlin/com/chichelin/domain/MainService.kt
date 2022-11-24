@@ -89,6 +89,17 @@ class ChickenService(
 
     fun getRecommend() = ChickenResponse(chickenRepository.getRecommendChicken()[0])
 
+    fun getRanking(): ChickenRankingResponse {
+        val result = mutableListOf<ChickenResponse>()
+        var i = 0
+        val chickens = chickenRepository.getRecommendChicken()
+        while (i < 3) {
+            result.add(ChickenResponse(chickens[i]))
+            i++
+        }
+        return ChickenRankingResponse(result)
+    }
+
 
     /**
      * Review
@@ -104,9 +115,7 @@ class ChickenService(
                 chicken = chicken
             )
         )
-        println(chicken.reviews)
         chickenRepository.flush()
-        println(chicken.reviews)
         return ChickenResponse(chicken)
     }
 
@@ -115,11 +124,14 @@ class ChickenService(
         val chicken = findById(chickenId)
         chicken.reviews
             .find { it.id == reviewId }
-            ?.update(
-                content = form.content,
-                nickname = form.nickname,
-                password = form.password
-            )
+            ?.let {
+                if (it.password != form.password) throw RuntimeException("비밀번호가 다릅니다.")
+                it.update(
+                    content = form.content,
+                    nickname = form.nickname,
+                    password = form.password
+                )
+            }
         return ChickenResponse(chicken)
     }
 
@@ -129,16 +141,20 @@ class ChickenService(
         chicken.reviews
             .find { it.id == reviewId }
             ?.plusLike()
+            ?: throw NoSuchElementException("리뷰가 존재하지 않습니다.")
         return ChickenResponse(chicken)
     }
 
     @Transactional
-    fun deleteReview(chickenId: Long, reviewId: Long): ChickenResponse {
+    fun deleteReview(chickenId: Long, reviewId: Long, password: Int): ChickenResponse {
         val chicken = findById(chickenId)
 
         chicken.reviews
             .find { it.id == reviewId }
-            .let { chicken.reviews.remove(it) }
+            ?.let {
+                if (it.password != password) throw RuntimeException("비밀번호가 다릅니다.")
+                chicken.reviews.remove(it)
+            }
 
         return ChickenResponse(chicken)
     }
