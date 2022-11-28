@@ -27,10 +27,9 @@ class ChickenController(private val chickenService: ChickenService) {
         chickenService.getChicken(chickenId)
 
     @GetMapping("/list")
-    fun getChickenList(@PageableDefault(sort = ["id"],
-            direction = Sort.Direction.DESC,
-            size = PAGE_PER_UNIT) pageable: Pageable): ChickenListResponse =
-        chickenService.getChickenList(pageable)
+    fun getChickenList(
+        @PageableDefault(sort = ["id"], direction = Sort.Direction.DESC, size = PAGE_PER_UNIT) pageable: Pageable
+    ): ChickenListResponse = chickenService.getChickenList(pageable)
 
     @PutMapping("/{chickenId}/like")
     fun plusChickenLike(@PathVariable chickenId: Long): ChickenResponse =
@@ -51,6 +50,13 @@ class ChickenController(private val chickenService: ChickenService) {
 
     @GetMapping("/ranking")
     fun getRanking(): ChickenRankingResponse = chickenService.getRanking()
+
+    @GetMapping("/search")
+    fun search(
+        keyword: String,
+        @PageableDefault(sort = ["id"], direction = Sort.Direction.DESC, size = PAGE_PER_UNIT) pageable: Pageable
+    ): ChickenListResponse = chickenService.search(keyword, pageable)
+
 
 
     /**

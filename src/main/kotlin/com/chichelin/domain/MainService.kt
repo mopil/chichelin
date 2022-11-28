@@ -100,6 +100,11 @@ class ChickenService(
         return ChickenRankingResponse(result)
     }
 
+    fun search(keyword: String, pageable: Pageable)  = ChickenListResponse(
+        chickenRepository.searchByKeyword(keyword, pageable)
+    )
+
+
 
     /**
      * Review
