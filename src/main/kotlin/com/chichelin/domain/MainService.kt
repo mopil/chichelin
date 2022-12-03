@@ -1,7 +1,6 @@
 package com.chichelin.domain
 
 import com.chichelin.config.getSavePath
-import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.multipart.MultipartFile
@@ -50,8 +49,8 @@ class ChickenService(
             .orElseThrow { NoSuchElementException() }
     )
 
-    fun getChickenList(pageable: Pageable) = ChickenListResponse(
-        chickenRepository.findAll(pageable)
+    fun getChickenList() = ChickenListResponse(
+        chickenRepository.findAll().map { ChickenResponse(it) }
     )
 
     @Transactional
@@ -100,8 +99,8 @@ class ChickenService(
         return ChickenRankingResponse(result)
     }
 
-    fun search(keyword: String, pageable: Pageable)  = ChickenListResponse(
-        chickenRepository.searchByKeyword(keyword, pageable)
+    fun search(keyword: String)  = ChickenListResponse(
+        chickenRepository.searchByKeyword(keyword).map { ChickenResponse(it) }
     )
 
 

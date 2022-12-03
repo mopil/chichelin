@@ -1,10 +1,6 @@
 package com.chichelin.domain
 
-import com.chichelin.config.PAGE_PER_UNIT
 import com.chichelin.config.logger
-import org.springframework.data.domain.Pageable
-import org.springframework.data.domain.Sort
-import org.springframework.data.web.PageableDefault
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -27,9 +23,7 @@ class ChickenController(private val chickenService: ChickenService) {
         chickenService.getChicken(chickenId)
 
     @GetMapping("/list")
-    fun getChickenList(
-        @PageableDefault(sort = ["id"], direction = Sort.Direction.DESC, size = PAGE_PER_UNIT) pageable: Pageable
-    ): ChickenListResponse = chickenService.getChickenList(pageable)
+    fun getChickenList(): ChickenListResponse = chickenService.getChickenList()
 
     @PutMapping("/{chickenId}/like")
     fun plusChickenLike(@PathVariable chickenId: Long): ChickenResponse =
@@ -52,10 +46,8 @@ class ChickenController(private val chickenService: ChickenService) {
     fun getRanking(): ChickenRankingResponse = chickenService.getRanking()
 
     @GetMapping("/search")
-    fun search(
-        keyword: String,
-        @PageableDefault(sort = ["id"], direction = Sort.Direction.DESC, size = PAGE_PER_UNIT) pageable: Pageable
-    ): ChickenListResponse = chickenService.search(keyword, pageable)
+    fun search(keyword: String): ChickenListResponse =
+        chickenService.search(keyword)
 
 
 

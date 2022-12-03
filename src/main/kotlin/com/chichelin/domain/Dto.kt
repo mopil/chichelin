@@ -1,6 +1,5 @@
 package com.chichelin.domain
 
-import org.springframework.data.domain.Page
 import org.springframework.web.multipart.MultipartFile
 
 data class BoolResponse(val result: Boolean = true)
@@ -51,21 +50,25 @@ data class ChickenRankingResponse(
     var ranking: MutableList<ChickenResponse>
 )
 
+//data class ChickenListResponse(
+//    var totalCount: Long,
+//    var curCount: Int,
+//    var totalPage: Int,
+//    var curPage: Int,
+//    var chickens: List<ChickenResponse> = mutableListOf()
+//) {
+//    constructor(chickenPage: Page<Chicken>): this(
+//        totalCount = chickenPage.totalElements,
+//        curCount = chickenPage.numberOfElements,
+//        totalPage = chickenPage.totalPages,
+//        curPage = chickenPage.number,
+//        chickens = chickenPage.map { ChickenResponse(it) }.toList()
+//    )
+//}
+
 data class ChickenListResponse(
-    var totalCount: Long,
-    var curCount: Int,
-    var totalPage: Int,
-    var curPage: Int,
     var chickens: List<ChickenResponse> = mutableListOf()
-) {
-    constructor(chickenPage: Page<Chicken>): this(
-        totalCount = chickenPage.totalElements,
-        curCount = chickenPage.numberOfElements,
-        totalPage = chickenPage.totalPages,
-        curPage = chickenPage.number,
-        chickens = chickenPage.map { ChickenResponse(it) }.toList()
-    )
-}
+)
 
 data class BrandListResponse(
     var brands: List<String> = mutableListOf()
