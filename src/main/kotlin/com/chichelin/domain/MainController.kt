@@ -1,12 +1,14 @@
 package com.chichelin.domain
 
 import com.chichelin.config.logger
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/chicken")
 class ChickenController(private val chickenService: ChickenService) {
     val log = logger()
+
     /**
      * Chicken
      */
@@ -50,7 +52,6 @@ class ChickenController(private val chickenService: ChickenService) {
         chickenService.search(keyword)
 
 
-
     /**
      * Review
      */
@@ -85,4 +86,18 @@ class ChickenController(private val chickenService: ChickenService) {
 class HelloController {
     @GetMapping
     fun hello() = "Hello! Chichelin is running on service."
+}
+
+@Controller
+class ReactClientRedirector {
+    @GetMapping(
+        value = [
+            "",
+            "/",
+            "/upload/**",
+            "/detail/**",
+            "/search/**"
+        ]
+    )
+    fun redirect() = "forward:/index.html"
 }
